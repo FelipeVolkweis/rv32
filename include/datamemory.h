@@ -12,8 +12,10 @@ typedef struct DataMemory DataMemory;
 
 struct DataMemory {
     uint8_t mem[MEMORY_SIZE];
+    int32_t read_data;
 };
 
 uint32_t dmem_load(DataMemory *dmem, uint32_t address, size_t sizeInBytes);
+void dmem_store(DataMemory *dmem, uint32_t address, int32_t data, size_t sizeInBytes);
 
 #endif // DATAMEMORY_H

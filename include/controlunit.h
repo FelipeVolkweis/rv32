@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <types.h>
 
+#define DONT_CARE 0
+
 typedef struct ControlUnit ControlUnit;
 
 struct ControlUnit {
@@ -17,6 +19,6 @@ struct ControlUnit {
 };
 
 int32_t ctrl_imm_gen(uint32_t instr);
-void ctrl_unit(ControlUnit *ctrlunit, uint32_t instr);
+void ctrl_unit(ControlUnit *ctrlunit, uint8_t opcode);
 
 #endif

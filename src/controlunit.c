@@ -31,22 +31,18 @@
 
 #define U_IMM_MASK 0xFFFFF000
 
-// Function to sign-extend a 12-bit immediate to 32-bit
 int32_t sign_extend_12(uint32_t imm) {
     return (imm & 0x800) ? (imm | 0xFFFFF000) : imm;
 }
 
-// Function to sign-extend a 13-bit immediate to 32-bit
 int32_t sign_extend_13(uint32_t imm) {
     return (imm & 0x1000) ? (imm | 0xFFFFE000) : imm;
 }
 
-// Function to sign-extend a 21-bit immediate to 32-bit
 int32_t sign_extend_21(uint32_t imm) {
     return (imm & 0x100000) ? (imm | 0xFFE00000) : imm;
 }
 
-// Function to sign-extend a 32-bit immediate to 32-bit (trivial)
 int32_t sign_extend_32(uint32_t imm) {
     return (int32_t)imm;
 }
@@ -93,10 +89,7 @@ int32_t ctrl_imm_gen(uint32_t instr) {
 }
 
 
-void ctrl_unit(ControlUnit *ctrlunit, uint32_t instr) {
-    // Extract the opcode from the instruction
-    uint8_t opcode = (instr >> 26) & OPCODE_MASK;
-
+void ctrl_unit(ControlUnit *ctrlunit, uint8_t opcode) {
     // Reset all control signals
     ctrlunit->reg_write = 0;
     ctrlunit->alu_src = 0;
@@ -118,13 +111,13 @@ void ctrl_unit(ControlUnit *ctrlunit, uint32_t instr) {
             ctrlunit->branch = 0;
             break;
 
-        case I_TYPE: // I-type instructions (load and arithmetic)
+        case I_TYPE: // I-type instructions
             ctrlunit->reg_write = 1;
             ctrlunit->alu_src = 1;
             ctrlunit->mem_read = 0;
             ctrlunit->mem_write = 0;
             ctrlunit->mem_to_reg = 0;
-            ctrlunit->alu_op = 0; // ALU operation for I-type
+            ctrlunit->alu_op = 2; // ALU operation for I-type
             ctrlunit->branch = 0;
             break;
 
@@ -143,7 +136,7 @@ void ctrl_unit(ControlUnit *ctrlunit, uint32_t instr) {
             ctrlunit->alu_src = 1;
             ctrlunit->mem_read = 0;
             ctrlunit->mem_write = 1;
-            ctrlunit->mem_to_reg = 0;
+            ctrlunit->mem_to_reg = DONT_CARE;
             ctrlunit->alu_op = 0; // ALU operation for store
             ctrlunit->branch = 0;
             break;
@@ -153,7 +146,7 @@ void ctrl_unit(ControlUnit *ctrlunit, uint32_t instr) {
             ctrlunit->alu_src = 0;
             ctrlunit->mem_read = 0;
             ctrlunit->mem_write = 0;
-            ctrlunit->mem_to_reg = 0;
+            ctrlunit->mem_to_reg = DONT_CARE;
             ctrlunit->alu_op = 1; // ALU operation for branch
             ctrlunit->branch = 1;
             break;
