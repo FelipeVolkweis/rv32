@@ -6,7 +6,7 @@
 
 #define MEMORY_SIZE 1024 * 1024 * 1
 #define WORD_SIZE 4
-#define BASE_ADDRESS 0x80000000
+#define BASE_ADDRESS 0x00000000
 
 typedef struct DataMemory DataMemory;
 

@@ -11,6 +11,6 @@ void fetch(InstructionMemory *imem, DataMemory *dmem);
 void decode(InstructionMemory *imem, Registers *regs, ControlUnit *ctrlunit);
 void execute(InstructionMemory *imem, Registers *regs, ALU *alu, ControlUnit *ctrlunit);
 void memory(InstructionMemory *imem, Registers *regs, DataMemory *dmem, ALU *alu, ControlUnit *ctrlunit);
-void writeback(Registers *regs, ALU *alu, ControlUnit *ctrlunit, DataMemory *dmem);
+void writeback(Registers *regs, DataMemory *dmem, ALU *alu,ControlUnit *ctrlunit);
 
 #endif // DATAPATH_H

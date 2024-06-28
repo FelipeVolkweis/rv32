@@ -43,7 +43,7 @@ void memory(InstructionMemory *imem, Registers *regs, DataMemory *dmem, ALU *alu
     }
 }
 
-void writeback(Registers *regs, ALU *alu, ControlUnit *ctrlunit, DataMemory *dmem) {
+void writeback(Registers *regs, DataMemory *dmem, ALU *alu,ControlUnit *ctrlunit) {
     if (ctrlunit->reg_write) {
         if (ctrlunit->mem_to_reg) {
             regs->reg[regs->rd] = dmem->read_data;
